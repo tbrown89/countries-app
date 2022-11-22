@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles, lightTheme, darkTheme } from './components/styled/GlobalStyles';
+import useLocalStorage from './hooks/useLocalStorage';
+import useAxiosFetch from './hooks/useAxiosFetch';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Index from './pages/Index';
+import Details from './pages/Details';
 
-function App() {
+const api_url = 'https://restcountries.com/v3.1/all';
+
+const App = () => {
+  const { data, fetchError, isLoading } = useAxiosFetch(api_url);
+  const [allCountries, setAllCountries] = useState([]);
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+
+  useEffect(() => {
+    setAllCountries(data);
+  }, [data]);
+
+  const toggleTheme = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <BrowserRouter>
+          <Header
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+          <Routes>
+            <Route path='/' element={
+              <Index
+                allCountries={allCountries}
+                fetchError={fetchError}
+                isLoading={isLoading}
+              />}
+            />
+            <Route path='details' element={<Details />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
+  )
 }
 
-export default App;
+export default App
