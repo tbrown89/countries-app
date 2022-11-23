@@ -1,13 +1,15 @@
 import React from 'react';
 import { DropdownStyles } from './styled/DropdownStyles';
 
-const Dropdown = ({ setFilterValue }) => {
+const Dropdown = ({ filterByRegion, setFilterByRegion }) => {
     const handleChange = (event) => {
-        setFilterValue(event.target.value);
+        setFilterByRegion(event.target.value.toLowerCase());
     };
 
     return (
-        <DropdownStyles onChange={handleChange}>
+        <DropdownStyles
+            onChange={handleChange}
+            value={filterByRegion}>
             <option value='all'>Filter by Region</option>
             <option value='africa'>Africa</option>
             <option value='americas'>America</option>

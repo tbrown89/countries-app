@@ -13,7 +13,8 @@ const api_url = 'https://restcountries.com/v3.1/all';
 const App = () => {
   const { data, fetchError, isLoading } = useAxiosFetch(api_url);
   const [allCountries, setAllCountries] = useState([]);
-  const [filterValue, setFilterValue] = useState('all');
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [filterByRegion, setFilterByRegion] = useLocalStorage('region', 'all');
   const [inputValue, setInputValue] = useState('');
   const [theme, setTheme] = useLocalStorage('theme', 'light');
 
@@ -21,6 +22,18 @@ const App = () => {
     setAllCountries(data);
   }, [data]);
 
+  // FILTER BY REGION
+  useEffect(() => {
+    if (filterByRegion === 'all') {
+      setFilteredCountries(allCountries)
+    } else {
+      setFilteredCountries(allCountries.filter(
+        country => country.region.toLowerCase() === filterByRegion
+      ))
+    }
+  }, [allCountries, filterByRegion]);
+
+  // TOGGLE DARK & LIGHT THEME
   const toggleTheme = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
   };
@@ -40,10 +53,11 @@ const App = () => {
                 allCountries={allCountries}
                 fetchError={fetchError}
                 isLoading={isLoading}
-                filterValue={filterValue}
-                setFilterValue={setFilterValue}
+                filterByRegion={filterByRegion}
+                setFilterByRegion={setFilterByRegion}
                 inputValue={inputValue}
                 setInputValue={setInputValue}
+                filteredCountries={filteredCountries}
               />}
             />
             <Route path='details' element={<Details />} />

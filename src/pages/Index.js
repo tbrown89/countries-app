@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar';
 import Dropdown from '../components/Dropdown';
 import Card from '../components/Card';
 
-const Index = ({ allCountries, fetchError, isLoading, filterValue, setFilterValue, inputValue, setInputValue }) => {
+const Index = ({ allCountries, fetchError, isLoading, filteredCountries, filterByRegion, setFilterByRegion, inputValue, setInputValue }) => {
 
     return (
         <>
@@ -20,11 +20,12 @@ const Index = ({ allCountries, fetchError, isLoading, filterValue, setFilterValu
                                 setInputValue={setInputValue}
                             />
                             <Dropdown
-                                setFilterValue={setFilterValue}
+                                filterByRegion={filterByRegion}
+                                setFilterByRegion={setFilterByRegion}
                             />
                         </InputField>
                         <Countries>
-                            {allCountries.map((country, index) => {
+                            {filteredCountries.map((country, index) => {
                                 return (
                                     <Card
                                         key={index}
