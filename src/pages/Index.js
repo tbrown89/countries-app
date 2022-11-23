@@ -1,20 +1,44 @@
 import React from 'react';
+import { IndexStyles, InputField, Countries } from '../components/styled/IndexStyles';
+import { Container } from '../components/styled/Container';
+import SearchBar from '../components/SearchBar';
+import Dropdown from '../components/Dropdown';
+import Card from '../components/Card';
 
-const Index = ({ allCountries, fetchError, isLoading }) => {
-    console.log(allCountries);
+const Index = ({ allCountries, fetchError, isLoading, filterValue, setFilterValue, inputValue, setInputValue }) => {
 
     return (
         <>
-            {isLoading && <p>Loading...</p>}
-            {fetchError && <p>Error: {fetchError}</p>}
-            {!isLoading && !fetchError &&
-                <>
-                    {allCountries.map((country, index) => {
-                        return (
-                            <h1 key={index}>{country.name.common}</h1>
-                        )
-                    })}
-                </>}
+            <Container>
+                {isLoading && <p>Loading...</p>}
+                {fetchError && <p>Error: {fetchError}</p>}
+                {!isLoading && !fetchError &&
+                    <IndexStyles>
+                        <InputField>
+                            <SearchBar
+                                inputValue={inputValue}
+                                setInputValue={setInputValue}
+                            />
+                            <Dropdown
+                                setFilterValue={setFilterValue}
+                            />
+                        </InputField>
+                        <Countries>
+                            {allCountries.map((country, index) => {
+                                return (
+                                    <Card
+                                        key={index}
+                                        flag={country.flags.svg}
+                                        name={country.name.common}
+                                        population={country.population}
+                                        region={country.region}
+                                        capital={country.capital}
+                                    />
+                                )
+                            })}
+                        </Countries>
+                    </IndexStyles>}
+            </Container>
         </>
     )
 }

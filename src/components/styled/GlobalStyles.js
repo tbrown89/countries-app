@@ -15,6 +15,8 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
         font-family: 'Nunito Sans', sans-serif;
+        font-size: .875rem;
+        font-weight: 400;
         color: ${({ theme }) => theme.text};
         background-color: ${({ theme }) => theme.bg};
         transition: background-color .5s ease-in-out;
@@ -29,6 +31,15 @@ export const GlobalStyles = createGlobalStyle`
         @media screen and (min-width: 768px) {
             font-size: 1.5rem;
         }
+    }
+
+    img,
+    svg {
+        max-width: 100%;
+    }
+
+    ul {
+        list-style: none;
     }
 
     a {
