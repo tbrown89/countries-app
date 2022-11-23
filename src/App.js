@@ -12,26 +12,29 @@ const api_url = 'https://restcountries.com/v3.1/all';
 
 const App = () => {
   const { data, fetchError, isLoading } = useAxiosFetch(api_url);
-  const [allCountries, setAllCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [filterByRegion, setFilterByRegion] = useLocalStorage('region', 'all');
-  const [inputValue, setInputValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [theme, setTheme] = useLocalStorage('theme', 'light');
-
-  useEffect(() => {
-    setAllCountries(data);
-  }, [data]);
 
   // FILTER BY REGION
   useEffect(() => {
-    if (filterByRegion === 'all') {
-      setFilteredCountries(allCountries)
-    } else {
-      setFilteredCountries(allCountries.filter(
-        country => country.region.toLowerCase() === filterByRegion
-      ))
+    const regionFilterHandler = (country) => {
+      if (filterByRegion === 'all') {
+        return country;
+      }
+      return country.region.toLowerCase() === filterByRegion;
     }
-  }, [allCountries, filterByRegion]);
+
+    const searchFilterHandler = (country) => {
+      if (searchValue === '') {
+        return country;
+      }
+      return country.name.common.toLowerCase().includes(searchValue.toLowerCase())
+    }
+
+    setFilteredCountries(data.filter(regionFilterHandler).filter(searchFilterHandler))
+  }, [data, filterByRegion, searchValue]);
 
   // TOGGLE DARK & LIGHT THEME
   const toggleTheme = () => {
@@ -50,13 +53,12 @@ const App = () => {
           <Routes>
             <Route path='/' element={
               <Index
-                allCountries={allCountries}
                 fetchError={fetchError}
                 isLoading={isLoading}
                 filterByRegion={filterByRegion}
                 setFilterByRegion={setFilterByRegion}
-                inputValue={inputValue}
-                setInputValue={setInputValue}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
                 filteredCountries={filteredCountries}
               />}
             />

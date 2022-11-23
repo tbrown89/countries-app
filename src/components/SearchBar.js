@@ -1,16 +1,16 @@
 import React from 'react';
 import { SearchBarStyles } from './styled/SearchBarStyles';
 
-const SearchBar = ({ inputValue, setInputValue }) => {
+const SearchBar = ({ searchValue, setSearchValue }) => {
     const handleChange = (event) => {
-        setInputValue(event.target.value);
+        setSearchValue(event.target.value);
     };
 
     return (
         <form>
             <SearchBarStyles
                 type='search'
-                value={inputValue}
+                value={searchValue}
                 onChange={handleChange}
                 placeholder='Search for a country...'
             />

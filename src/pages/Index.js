@@ -4,8 +4,16 @@ import { Container } from '../components/styled/Container';
 import SearchBar from '../components/SearchBar';
 import Dropdown from '../components/Dropdown';
 import Card from '../components/Card';
+import { Link } from 'react-router-dom';
 
-const Index = ({ allCountries, fetchError, isLoading, filteredCountries, filterByRegion, setFilterByRegion, inputValue, setInputValue }) => {
+const Index = ({
+    fetchError,
+    isLoading,
+    filteredCountries,
+    filterByRegion,
+    setFilterByRegion,
+    searchValue,
+    setSearchValue }) => {
 
     return (
         <>
@@ -16,8 +24,8 @@ const Index = ({ allCountries, fetchError, isLoading, filteredCountries, filterB
                     <IndexStyles>
                         <InputField>
                             <SearchBar
-                                inputValue={inputValue}
-                                setInputValue={setInputValue}
+                                searchValue={searchValue}
+                                setSearchValue={setSearchValue}
                             />
                             <Dropdown
                                 filterByRegion={filterByRegion}
@@ -25,16 +33,18 @@ const Index = ({ allCountries, fetchError, isLoading, filteredCountries, filterB
                             />
                         </InputField>
                         <Countries>
-                            {filteredCountries.map((country, index) => {
+                            {!filteredCountries.length && <p>No Match</p>}
+                            {filteredCountries.length && filteredCountries.map((country, index) => {
                                 return (
-                                    <Card
-                                        key={index}
-                                        flag={country.flags.svg}
-                                        name={country.name.common}
-                                        population={country.population}
-                                        region={country.region}
-                                        capital={country.capital}
-                                    />
+                                    <Link to='details' key={index}>
+                                        <Card
+                                            flag={country.flags.svg}
+                                            name={country.name.common}
+                                            population={country.population}
+                                            region={country.region}
+                                            capital={country.capital}
+                                        />
+                                    </Link>
                                 )
                             })}
                         </Countries>
