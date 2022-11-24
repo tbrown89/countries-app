@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Flex } from '../styled/Mixins';
 
 export const IndexStyles = styled.main`
     margin: 1.5rem 0 2.5rem;
@@ -11,10 +12,8 @@ export const IndexStyles = styled.main`
 export const InputField = styled.section`
     
     @media screen and (min-width: 768px) {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         margin-bottom: 3rem;
+        ${Flex};
 
         &>* {
             flex-grow: 1;
@@ -23,11 +22,7 @@ export const InputField = styled.section`
 `;
 
 export const Countries = styled.section`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 2.5rem;
+    ${Flex};
 
     @media screen and (min-width: 768px) {
         gap: 74px;

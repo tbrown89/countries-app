@@ -27,7 +27,7 @@ const Index = ({
                             setFilterByRegion={setFilterByRegion}
                         />
                     </InputField>
-                    <Countries>
+                    <Countries jc='center' gap='2.5rem'>
                         {!filteredCountries.length && <p>No Match</p>}
                         {filteredCountries.length && filteredCountries.map((country, index) => {
                             return (

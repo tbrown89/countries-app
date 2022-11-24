@@ -2,8 +2,8 @@ import React from 'react';
 import { DropdownStyles } from './styled/DropdownStyles';
 
 const Dropdown = ({ filterByRegion, setFilterByRegion }) => {
-    const handleChange = (event) => {
-        setFilterByRegion(event.target.value.toLowerCase());
+    const handleChange = (e) => {
+        setFilterByRegion(e.target.value.toLowerCase());
     };
 
     return (

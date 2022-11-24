@@ -1,9 +1,9 @@
 import React from 'react';
-import { CardStyles, CardContent } from './styled/CardStyles';
+import { CountryCard, CardContent } from './styled/CardStyles';
 
 const Card = ({ flag, name, population, region, capital }) => {
     return (
-        <CardStyles>
+        <CountryCard>
             <img src={flag} alt={name} />
             <CardContent>
                 <h2>{name}</h2>
@@ -13,7 +13,7 @@ const Card = ({ flag, name, population, region, capital }) => {
                     <li>Capital: <span>{capital}</span></li>
                 </ul>
             </CardContent>
-        </CardStyles>
+        </CountryCard>
     )
 }
 

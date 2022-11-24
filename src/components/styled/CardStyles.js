@@ -1,26 +1,16 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { Flex } from '../styled/Mixins';
 
-export const CardStyles = styled.div`
-    width: 264px;
-    height: 100%;
+const BaseCard = styled.div`
     border-radius: 5px;
     overflow: hidden;
     background-color: ${({ theme }) => theme.componentBg};
     box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.03);
+`;
 
-    ${props => props.border && css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: .75rem;
-        padding: 0 1rem;
-        width: 96px;
-        height: 28px;
-
-        @media screen and (min-width: 768px) {
-            font-size: .875rem;
-        }
-    `}
+export const CountryCard = styled(BaseCard)`
+    width: 264px;
+    height: 100%;
 
     img {
         width: 100%;
@@ -41,3 +31,39 @@ export const CardStyles = styled.div`
 export const CardContent = styled.div`
     padding: 1.5rem;
 `;
+
+export const BorderCard = styled(BaseCard)`
+    ${Flex};
+    padding: 0 1rem;
+    min-width: 96px;
+    height: 28px;
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ${props => props.border && css`
+// display: flex;
+// justify-content: center;
+// align-items: center;
+// font-size: .75rem;
+// font-weight: 300;
+// padding: 0 1rem;
+// height: 28px;
+
+// @media screen and (min-width: 768px) {
+//     font-size: .875rem;
+// }
+// `}
