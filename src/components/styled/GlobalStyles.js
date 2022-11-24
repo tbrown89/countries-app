@@ -42,6 +42,14 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
     }
 
+    li {
+        font-weight: 600;
+
+        span {
+            font-weight: 300;
+        }
+    }
+
     a {
         text-decoration: none;
         color: ${({ theme }) => theme.text};

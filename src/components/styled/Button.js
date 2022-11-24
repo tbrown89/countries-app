@@ -25,6 +25,7 @@ export const Button = styled(BtnBase)`
         font-weight: 300;
         width: 6.5rem;
         height: 2rem;
+        margin-bottom: 4rem;
         border-radius: 2px;
         background-color: ${({ theme }) => theme.componentBg};
         box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const IndexStyles = styled.main`
+    margin: 1.5rem 0 2.5rem;
 
+    @media screen and (min-width: 768px) {
+        margin: 3rem 0;
+    }
 `;
 
 export const InputField = styled.section`
@@ -24,10 +28,8 @@ export const Countries = styled.section`
     justify-content: center;
     align-items: stretch;
     gap: 2.5rem;
-    margin-bottom: 2.5rem;
 
     @media screen and (min-width: 768px) {
         gap: 74px;
-        margin-bottom: 4.5rem;
     }
 `;

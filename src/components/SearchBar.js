@@ -2,12 +2,15 @@ import React from 'react';
 import { SearchBarStyles } from './styled/SearchBarStyles';
 
 const SearchBar = ({ searchValue, setSearchValue }) => {
-    const handleChange = (event) => {
-        setSearchValue(event.target.value);
+    const handleSubmit = e => e.preventDefault();
+
+    const handleChange = (e) => {
+        setSearchValue(e.target.value);
     };
 
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <SearchBarStyles
                 type='search'
                 value={searchValue}

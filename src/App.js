@@ -7,8 +7,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Index from './pages/Index';
 import Details from './pages/Details';
+import { Container } from './components/styled/Container';
+import { Status } from './components/styled/Status';
 
-const api_url = 'https://restcountries.com/v3.1/all';
+const api_url = 'https://restcountries.com/v2/all';
 
 const App = () => {
   const { data, fetchError, isLoading } = useAxiosFetch(api_url);
@@ -17,7 +19,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [theme, setTheme] = useLocalStorage('theme', 'light');
 
-  // FILTER BY REGION
+  // FILTER BY REGION & SEARCH
   useEffect(() => {
     const regionFilterHandler = (country) => {
       if (filterByRegion === 'all') {
@@ -30,7 +32,7 @@ const App = () => {
       if (searchValue === '') {
         return country;
       }
-      return country.name.common.toLowerCase().includes(searchValue.toLowerCase())
+      return country.name.toLowerCase().includes(searchValue.toLowerCase())
     }
 
     setFilteredCountries(data.filter(regionFilterHandler).filter(searchFilterHandler))
@@ -50,20 +52,31 @@ const App = () => {
             theme={theme}
             toggleTheme={toggleTheme}
           />
-          <Routes>
-            <Route path='/' element={
-              <Index
-                fetchError={fetchError}
-                isLoading={isLoading}
-                filterByRegion={filterByRegion}
-                setFilterByRegion={setFilterByRegion}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-                filteredCountries={filteredCountries}
-              />}
-            />
-            <Route path='details' element={<Details />} />
-          </Routes>
+          {isLoading &&
+            <Container>
+              <Status>Loading...</Status>
+            </Container>
+          }
+          {fetchError &&
+            <Container>
+              <Status error><span>Page not found!</span> {fetchError}</Status>
+            </Container>
+          }
+          {!isLoading && !fetchError &&
+            <Routes>
+              <Route path='/' element={
+                <Index
+                  filterByRegion={filterByRegion}
+                  setFilterByRegion={setFilterByRegion}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  filteredCountries={filteredCountries}
+                />}
+              />
+              <Route path='details/:name' element={<Details data={data} />} />
+            </Routes>
+          }
+
         </BrowserRouter>
       </ThemeProvider>
     </>

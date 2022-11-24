@@ -7,8 +7,6 @@ import Card from '../components/Card';
 import { Link } from 'react-router-dom';
 
 const Index = ({
-    fetchError,
-    isLoading,
     filteredCountries,
     filterByRegion,
     setFilterByRegion,
@@ -18,37 +16,34 @@ const Index = ({
     return (
         <>
             <Container>
-                {isLoading && <p>Loading...</p>}
-                {fetchError && <p>Error: {fetchError}</p>}
-                {!isLoading && !fetchError &&
-                    <IndexStyles>
-                        <InputField>
-                            <SearchBar
-                                searchValue={searchValue}
-                                setSearchValue={setSearchValue}
-                            />
-                            <Dropdown
-                                filterByRegion={filterByRegion}
-                                setFilterByRegion={setFilterByRegion}
-                            />
-                        </InputField>
-                        <Countries>
-                            {!filteredCountries.length && <p>No Match</p>}
-                            {filteredCountries.length && filteredCountries.map((country, index) => {
-                                return (
-                                    <Link to='details' key={index}>
-                                        <Card
-                                            flag={country.flags.svg}
-                                            name={country.name.common}
-                                            population={country.population}
-                                            region={country.region}
-                                            capital={country.capital}
-                                        />
-                                    </Link>
-                                )
-                            })}
-                        </Countries>
-                    </IndexStyles>}
+                <IndexStyles>
+                    <InputField>
+                        <SearchBar
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                        />
+                        <Dropdown
+                            filterByRegion={filterByRegion}
+                            setFilterByRegion={setFilterByRegion}
+                        />
+                    </InputField>
+                    <Countries>
+                        {!filteredCountries.length && <p>No Match</p>}
+                        {filteredCountries.length && filteredCountries.map((country, index) => {
+                            return (
+                                <Link to={`/details/${country.name}`} key={index}>
+                                    <Card
+                                        flag={country.flags.svg}
+                                        name={country.name}
+                                        population={country.population}
+                                        region={country.region}
+                                        capital={!country.capital ? 'N/A' : country.capital}
+                                    />
+                                </Link>
+                            )
+                        })}
+                    </Countries>
+                </IndexStyles>
             </Container>
         </>
     )
