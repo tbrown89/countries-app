@@ -31,7 +31,7 @@ const Index = ({
                         {!filteredCountries.length && <p>No Match</p>}
                         {filteredCountries.length && filteredCountries.map((country, index) => {
                             return (
-                                <Link to={`/details/${country.name}`} key={index}>
+                                <Link to={`details/${country.name}`} key={index}>
                                     <Card
                                         flag={country.flags.svg}
                                         name={country.name}

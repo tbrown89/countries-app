@@ -38,32 +38,3 @@ export const BorderCard = styled(BaseCard)`
     min-width: 96px;
     height: 28px;
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ${props => props.border && css`
-// display: flex;
-// justify-content: center;
-// align-items: center;
-// font-size: .75rem;
-// font-weight: 300;
-// padding: 0 1rem;
-// height: 28px;
-
-// @media screen and (min-width: 768px) {
-//     font-size: .875rem;
-// }
-// `}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DetailsStyles, Flag, BorderCountries, BorderCardWrapper, CountryDataWrapper } from '../components/styled/DetailsStyles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Button } from '../components/styled/Button';
 import { Container } from '../components/styled/Container';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -11,15 +11,21 @@ const Details = ({ data }) => {
     const { name } = useParams();
     const navigate = useNavigate();
 
-    const country = data.find(country => country.name === name)
-    console.log(data)
+    console.log(data);
 
+    const { pathname } = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    const country = data.find(country => country.name === name)
 
     const countryDataMain = {
         "Native Name": country?.nativeName,
         "Population": country?.population.toLocaleString(),
         "Region": country?.region,
-        "Sub Region": country?.subregion
+        "Sub Region": country?.subregion,
+        "Capital": country?.capital
     };
 
     const countryDataSecondary = {
