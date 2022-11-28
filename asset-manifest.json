@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/countries-app/static/js/main.2e298547.js",
-    "index.html": "/countries-app/index.html",
-    "main.2e298547.js.map": "/countries-app/static/js/main.2e298547.js.map"
+    "main.js": "/static/js/main.db7b612b.js",
+    "index.html": "/index.html",
+    "main.db7b612b.js.map": "/static/js/main.db7b612b.js.map"
   },
   "entrypoints": [
-    "static/js/main.2e298547.js"
+    "static/js/main.db7b612b.js"
   ]
 }
